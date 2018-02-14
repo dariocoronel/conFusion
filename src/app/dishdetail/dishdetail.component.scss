@@ -1,0 +1,12 @@
+.full-width {
+    width: 95%;
+}
+
+.clarito {
+    color: dimgray;
+}
+
+button:disabled {
+    background-color: lightgray!important;
+    cursor: not-allowed;
+}

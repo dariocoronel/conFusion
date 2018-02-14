@@ -95,7 +95,7 @@ export class DishdetailComponent implements OnInit {
       author: '',
       rating: 5,
       comment: '',
-      date: ''
+      date: '',
     });
   }
 

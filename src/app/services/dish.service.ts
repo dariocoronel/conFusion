@@ -12,16 +12,18 @@ import { baseURL } from '../shared/baseurl';
 import { ProcessHttpmsgService } from './process-httpmsg.service';
 import 'rxjs/add/operator/catch';
 
+import { RestangularModule, Restangular } from 'ngx-restangular';
+
 @Injectable()
 export class DishService {
 
-  constructor(private http: Http,
-    private processHttpmsgService: ProcessHttpmsgService) { }
+  constructor(private restangular: Restangular) { }
 
   getDishes(): Observable<Dish[]> {
-    return this.http.get(baseURL + 'dishes')
+    return this.restangular.all('dishes').getList();
+    /*return this.http.get(baseURL + 'dishes')
       .map(res => { return this.processHttpmsgService.extractData(res); })
-      .catch(error => { return this.processHttpmsgService.handleError(error); });
+      .catch(error => { return this.processHttpmsgService.handleError(error); });*/
     //return Observable.of(DISHES).delay(2000);
     /*return new Promise(resolve => {
       setTimeout(() => resolve(DISHES), 2000)
@@ -29,15 +31,18 @@ export class DishService {
   }
 
   getDish(id: number): Observable<Dish> {
-    return this.http.get(baseURL + 'dishes/' + id)
+    return this.restangular.one('dishes',id).get();
+    /*return this.http.get(baseURL + 'dishes/' + id)
       .map(res => { return this.processHttpmsgService.extractData(res); })
-      .catch(error => { return this.processHttpmsgService.handleError(error); });
+      .catch(error => { return this.processHttpmsgService.handleError(error); });*/
   }
 
   getFeaturedDish(): Observable<Dish> {
-    return this.http.get(baseURL + 'dishes?featured=true')
+    return this.restangular.all('dishes').getList({featured: true})
+      .map(dishes => dishes[0]);
+    /*return this.http.get(baseURL + 'dishes?featured=true')
       .map(res => { return this.processHttpmsgService.extractData(res)[0]; })
-      .catch(error => { return this.processHttpmsgService.handleError(error); });
+      .catch(error => { return this.processHttpmsgService.handleError(error); });*/
   }
 
   getDishIds(): Observable<number[]> {

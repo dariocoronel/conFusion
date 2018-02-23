@@ -32,6 +32,9 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component'
 
 import { baseURL } from './shared/baseurl';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 @NgModule({
@@ -44,7 +47,8 @@ import { baseURL } from './shared/baseurl';
         HomeComponent,
         AboutComponent,
         ContactComponent,
-        LoginComponent
+        LoginComponent,
+        HighlightDirective
     ],
     imports: [
         BrowserModule,
@@ -57,7 +61,8 @@ import { baseURL } from './shared/baseurl';
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule
+        HttpModule,
+        RestangularModule.forRoot(RestangularConfigFactory)
     ],
     entryComponents: [
         LoginComponent

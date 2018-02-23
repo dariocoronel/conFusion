@@ -1,4 +1,5 @@
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { delay } from 'q';
 
 export function visibility() {
     return trigger('visibility', [
@@ -18,15 +19,16 @@ export function flyInOut() {
     return trigger('flyInOut', [
         state('*', style({ opacity: 1, transform: 'translateX(0)' })),
         transition(':enter', [
-            style({ transform: 'translateX(-100%)', opacity: 0 }),
-            animate('500ms ease-in')
+            style({ position: 'absolute', transform: 'translateX(-100%)' }),
+            animate('0ms 1000ms', style({ opacity: 1 })),
+            style({ position: 'unset' }),
+            animate('1000ms ease-out')
         ]),
         transition(':leave', [
-            animate('500ms ease-out', style({ transform: 'translateX(100%)', opacity: 0 }))
+            animate('1000ms ease-in', style({ opacity: 0, transform: 'translateX(100%)' }))
         ])
     ]);
 }
-
 export function expand() {
     return trigger('expand', [
         state('*', style({ opacity: 1, transform: 'translateX(0)' })),
